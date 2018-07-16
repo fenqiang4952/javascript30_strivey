@@ -18,7 +18,7 @@
 
   <style>
     html {
-      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background:#018DED url(background.jpg);
       background-size:cover;
       font-family:'helvetica neue';
       text-align: center;
@@ -41,6 +41,7 @@
       margin:50px auto;
       position: relative;
       padding:2rem;
+      background: rgba(0, 0, 0, .4);
       box-shadow:
         0 0 0 4px rgba(0,0,0,0.1),
         inset 0 0 0 3px #EFEFEF,
@@ -55,17 +56,84 @@
       transform: translateY(-3px); /* account for the height of the clock hands */
     }
 
+    .clock-face:after {
+      width: 1em;
+      height: 1em;
+      background: #a8c5d1;
+      border-radius: 50%;
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow:
+                0 0 0 2px rgba(0,0,0,0.1),
+                0 0 10px rgba(0,0,0,0.2);
+    }
+
     .hand {
       width:50%;
       height:6px;
-      background:black;
+      background:#fff;
       position: absolute;
       top:50%;
+      right: 50%;
+      transform: rotate(90deg);
+      transform-origin: 100% 50%;
+      transition-timing-function: cubic-bezier(0.9, 0.54, 0.26, 1.68);
+      box-shadow:
+                0 0 0 .1px #fff,
+                0 0 0 1px rgba(0,0,0,0.1),
+                0 0 8px rgba(0,0,0,0.4),
+                2px 5px 1px rgba(0, 0, 0, .5);
+    }
+
+    .hour-hand {
+        width: 40%;
+        height:10px;
+        margin-top: -5px;
+        border-bottom-left-radius: .5em;
+        border-top-left-radius: .5em;
+        transition: all 3s;
+    }
+
+    .min-hand {
+        width: 45%;
+        height:5px;
+        margin-top: -2.5px;
+        transition: all .1s;
+    }
+
+    .second-hand {
+        height: 2px;
+        margin-top: -1px;
+        border-bottom-left-radius: 100%;
+        border-top-left-radius: 100%;
+        transition: all .05s;
+        background-color: red;
     }
 
   </style>
 
   <script>
+
+    const hourHand = document.querySelector('.hour-hand')
+    const minHand = document.querySelector('.min-hand')
+    const second = document.querySelector('.second-hand')
+
+    function setDate() {
+      const date = new Date()
+      const second = date.getSeconds()
+      const secondRoate = 90+(second/60)*360
+
+      const min = date.getMinutes()
+      const minRoate = 90+(min/60)*360
+
+      const hour = date.getHours()
+    }
+
+    setInterval(setDate, 1000)
 
 
   </script>
