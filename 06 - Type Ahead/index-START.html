@@ -8,14 +8,60 @@
 <body>
 
   <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
+    <input type="text" class="search" placeholder="诗句 诗名 诗人">
     <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
+      <li>输入诗词找一首诗</li>
+      <li></li>
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+// const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const endpoint = 'https://gist.githubusercontent.com/soyaine/81399bb2b24ca1bb5313e1985533c640/raw/bdf7df2cbcf70706c4a5e51a7dfb8c933ed78878/TangPoetry.json';
+
+  let poetrys = []
+  fetch(endpoint)
+  .then((res) => {
+    return res.json()
+  }).then((data) => {
+    poetrys  = data
+  })
+
+  function searchPoetry() {
+    
+    const poetrys_ = poetrys.filter((item) => {
+      return item.detail_text.includes(this.value) ||
+        item.title.includes(this.value) ||
+        item.detail_author.join('').includes(this.value)
+    })
+    // suggestions.innerHTML = ''
+    // poetrys_.forEach(item => {
+    //   const oLi = document.createElement('li')
+    //   oLi.textContent = item.detail_text
+    //   suggestions.appendChild(oLi)
+    // })
+    const reg = new RegExp(this.value, 'gi')
+    const html = poetrys_.map(item => {
+
+      const text = item.detail_text.replace(reg, `<span class='hl'>${this.value}</span>`)
+      const title = item.title.replace(reg, `<span class='hl'>${this.value}</span>`)
+      const author = item.detail_author&&item.detail_author.join('').replace(reg, `<span class='hl'>${this.value}</span>`) || ''
+      return `
+        <li >
+          <span class='poet'>${text}</span>
+          <span class='title'>${title}-${author}</span>
+        </li>
+      `
+    }).join('')
+
+    suggestions.innerHTML = html
+
+  }
+
+  const search = document.querySelector('.search')
+  const suggestions = document.querySelector('.suggestions')
+
+  search.addEventListener('input', searchPoetry)
+
 
 </script>
   </body>
