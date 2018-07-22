@@ -18,28 +18,71 @@
     }
 
     // Regular
+    console.log('i am a console ');
 
     // Interpolated
+    console.log('I am a console %s', 'mumu');
+    console.log('my age is %f', 2);
 
     // Styled
+    console.log("%c I am a console of color", "color: #ff0000; font-size: 2em;");
 
     // warning!
+    console.warn('I am a console warn');
 
     // Error :|
+    console.error('oh shit! I am a error ')
 
     // Info
+    console.info('I am a info')
 
     // Testing
+    const p = document.querySelector('p');
+	  console.log(p);
+	  console.dir(p);
+    console.assert(1 ===1, "（这句发布时删除）");
+	  console.assert(1 ===0, "看看看，失策了吧");
+	console.assert(p.innerHTML.match("她"), "我这儿才没有她这个人");
 
     // clearing
+    // console.clear();
 
     // Viewing DOM Elements
 
+
     // Grouping together
+
+    dogs.forEach(dog => {
+		console.group();
+//		console.groupCollapsed(); // 收起列表
+		console.log(`${dog.name}`);
+		console.log(`${dog.age}`);
+		console.log(`${dog.name} 有 ${dog.age} 岁了`);
+		console.groupEnd();
+  });
+  
+  console.table(dogs);
+	  console.table(dogs, ["age"]);
 
     // counting
 
+    console.count("（读来过反）羊只");
+	  console.count("（读来过反）羊只");
+	  console.count("（读来过反）鱼条");
+	  console.count("（读来过反）羊只");
+	  console.count("（读来过反）羊只");
+	  console.count("（读来过反）鱼条");
+	  console.count("（读来过反）鱼条");
+	  console.count("（读来过反）羊只");
+
     // timing
+    console.time('fetch my data');
+	  fetch("https://api.github.com/users/soyaine")
+		  .then(data => data.json())
+		  .then(data => {
+		  console.timeEnd('fetch my data');
+		  console.log(data);
+	  });
 
   </script>
 </body>
