@@ -6,6 +6,11 @@ const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 
+const playbackRateBox = document.querySelector('.playbackRate__box')
+const playbackRateBtn = document.querySelector('.playbackRate__btn')
+const playbackRateList = document.querySelector('.playbackRate__list')
+const playbackRateItems = playbackRateList.querySelectorAll('.playbackRate__item')
+
 function togglePlay() {
     if (video.paused) {
         video.play()
@@ -44,6 +49,13 @@ function handleProgress(e) {
     video.currentTime = parseFloat(video.duration * (e.offsetX / progress.offsetWidth))
 }
 
+function showPlaybackRate() {
+    playbackRateList.style.display = 'block'
+}
+function hidePlaybackRate() {
+    playbackRateList.style.display = 'none'
+}
+
 video.addEventListener('click', togglePlay)
 toggle.addEventListener('click', togglePlay)
 video.addEventListener('play', updateButton)
@@ -60,3 +72,6 @@ progress.addEventListener('click', handleProgress)
 progress.addEventListener('mousedown', () => mouseDown = true)
 progress.addEventListener('mousemove', (e) => mouseDown && handleProgress(e))
 progress.addEventListener('mouseup', () => mouseDown = false)
+
+playbackRateBox.addEventListener('mouseover', hidePlaybackRate)
+playbackRateBtn.addEventListener('click', showPlaybackRate)
