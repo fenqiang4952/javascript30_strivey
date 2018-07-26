@@ -73,5 +73,5 @@ progress.addEventListener('mousedown', () => mouseDown = true)
 progress.addEventListener('mousemove', (e) => mouseDown && handleProgress(e))
 progress.addEventListener('mouseup', () => mouseDown = false)
 
-playbackRateBox.addEventListener('mouseover', hidePlaybackRate)
+// playbackRateBox.addEventListener('mouseover', hidePlaybackRate)
 playbackRateBtn.addEventListener('click', showPlaybackRate)
