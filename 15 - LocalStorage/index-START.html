@@ -22,13 +22,90 @@
     <form class="add-items">
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
+      <input class="checked-all" type="button" value="checked all">
+      <input class="unChecked-all"  type="button" value="unChecked all">
+      <input class="delete-all" type="reset" value="del all">
     </form>
   </div>
 
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  let plates = [];
+  plates = JSON.parse(localStorage.getItem('items')) || []
+  renderItems(plates)
+
+
+  function addItem() {
+    this.item
+    const plate = {
+      text: this.item.value,
+      done: false
+    }
+    plates = JSON.parse(localStorage.getItem('items')) || []
+    plates.push(plate)
+    localStorage.setItem('items',JSON.stringify(plates))
+    renderItems(plates)
+  }
+
+  function renderItems(items) {
+    itemsList.innerHTML = items.map((item, i) => {
+      return `
+      <li>
+				<input type="checkbox" data-index=${i} id="item${i}" ${item.done ? 'checked' : ''} >
+                <label for="item${i}">${item.text}</label>
+            </li>
+      `
+    }).join('')
+  }
+
+  function toggleCheck(e) {
+    if(e.target.tagName.toLocaleLowerCase() != 'input') return
+    plates[e.target.dataset.index].done = e.target.checked
+    localStorage.setItem('items',JSON.stringify(plates))
+  }
+
+
+
+  addItems.addEventListener('submit', addItem)
+  itemsList.addEventListener('click', toggleCheck)
+
+  // -----------------------------------------------
+
+  const deleteAll = document.querySelector('.delete-all')
+  const checkedAll  = document.querySelector('.checked-all')
+  const unCheckedAll = document.querySelector('.unChecked-all');
+  
+
+  function deleteAllFun() {
+    plates = []
+    renderItems(plates)
+    localStorage.setItem('items',JSON.stringify(plates))
+  }
+
+  function checkedAllFUn() {
+    let checked = true
+    if(!Array.from(this.classList).includes('checked-all')) {
+      checked = false
+    }
+    itemsList.querySelectorAll('input').forEach(item => {
+      item.checked = checked
+    })
+    plates.forEach(item => {
+      item.done = checked
+    })
+    localStorage.setItem('items',JSON.stringify(plates))
+  }
+
+
+
+
+
+
+  deleteAll.addEventListener('click', deleteAllFun)
+  checkedAll.addEventListener('click', checkedAllFUn)
+  unCheckedAll.addEventListener('click', checkedAllFUn)
+
 
 </script>
 
