@@ -35,9 +35,8 @@
   plates = JSON.parse(localStorage.getItem('items')) || []
   renderItems(plates)
 
-
-  function addItem() {
-    this.item
+  function addItem(e) {
+    e.preventDefault();
     const plate = {
       text: this.item.value,
       done: false
@@ -64,8 +63,6 @@
     plates[e.target.dataset.index].done = e.target.checked
     localStorage.setItem('items',JSON.stringify(plates))
   }
-
-
 
   addItems.addEventListener('submit', addItem)
   itemsList.addEventListener('click', toggleCheck)
@@ -96,12 +93,6 @@
     })
     localStorage.setItem('items',JSON.stringify(plates))
   }
-
-
-
-
-
-
   deleteAll.addEventListener('click', deleteAllFun)
   checkedAll.addEventListener('click', checkedAllFUn)
   unCheckedAll.addEventListener('click', checkedAllFUn)
