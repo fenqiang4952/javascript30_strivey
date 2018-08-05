@@ -3,8 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Videos</title>
+  <style lang="text/css">
+    .videos {
+      margin: 40px auto;
+      max-width: 500px;
+      border: 20px solid #cccccc;
+    }
+  </style>
 </head>
 <body>
+  <h2>播放总时长为：</h2>
   <ul class="videos">
     <li data-time="5:43">
       Video 1
@@ -182,6 +190,22 @@
     </li>
   </ul>
 <script>
+
+  const videos = document.querySelectorAll('li');
+
+  const videosArr = Array.from(videos)
+  const c = videosArr.reduce( (a,b) => {
+    const bTime = b.dataset.time
+    const bTimeData = bTime.split(':')[0]*60 + Number(bTime.split(':')[1])
+    return {
+      sumTimeData: a.sumTimeData + bTimeData
+    }
+  }, {
+    sumTimeData: 0
+  })
+
+  console.log( parseInt(c.sumTimeData/60/60)+':' +parseInt(c.sumTimeData%(60*60)/60)+ ':' + parseInt(c.sumTimeData%(60*60)%60));
+
 </script>
 </body>
 </html>
