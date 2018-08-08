@@ -27,6 +27,37 @@
 
   <script>
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+
+    const lis = document.querySelectorAll('li');
+    const activeSpan = document.createElement('span')
+    activeSpan.setAttribute('class', 'highlight')
+    document.body.appendChild(activeSpan);
+
+    activeSpan.style.display = 'none'
+
+
+    function lightOn(e) {
+      const activeLink = e.target.getBoundingClientRect()
+      console.log(activeLink);
+      console.log(window.pageXOffset,window.pageYOffset);
+
+      const cords = {
+        width: activeLink.width,
+        height: activeLink.height,
+        left:window.pageXOffset + activeLink.left,
+        top: window.pageYOffset + activeLink.top
+      }
+
+      activeSpan.style.height = `${cords.height}px`;
+       activeSpan.style.width = `${cords.width}px`;
+       activeSpan.style.left = `${cords.left}px`;
+       activeSpan.style.top = `${cords.top}px`;
+       activeSpan.style.display = 'inline';
+    }
+
+    lis.forEach(item => {
+      item.addEventListener('mouseenter', lightOn)
+    })
   </script>
 </body>
 </html>
