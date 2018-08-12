@@ -50,20 +50,20 @@ function getSupportVoice() {
 
     option.setAttribute('data-lang', voices[i].lang);
     option.setAttribute('data-name', voices[i].name);
+    option.setAttribute('value', i);
     voicesDropdown.appendChild(option);
   }
 }
 
 //点击speak按钮时阅读文字
 function speak() {
-  console.log(voicesDropdown.value);
   synth.speak(msg);
 }
 
 //阅读参数发生变化
 function paramChange(){
   msg[this.name] = this.value;
-  console.log(this.name,this.value);
+  // console.log(this.name,this.value);
 }
 
 //停止阅读
@@ -71,8 +71,15 @@ function stopSpeak(){
   synth.cancel();
 }
 
+function voicesDropdownChange(e) {
+  msg.voice = voices.filter( (item,index) => {
+    return index == this.value
+  })[0]
+}
+
 // 事件绑定
 options.forEach(opt => opt.addEventListener('change', paramChange));
+voicesDropdown.addEventListener('change', voicesDropdownChange)
 synth.addEventListener('voiceschanged', getSupportVoice);//经测试直接执行无效，须由事件触发
 speakButton.addEventListener('click', speak);
 stopButton.addEventListener('click', stopSpeak);
