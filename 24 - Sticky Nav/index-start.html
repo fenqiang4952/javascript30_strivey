@@ -55,6 +55,19 @@
 
 <script>
 
+  const nav = document.querySelector('#main');
+  const navTop = nav.offsetTop;
+
+  function adjust(e) {
+    if(window.scrollY > navTop) {
+      nav.classList.add('fixed-nav')
+    }else {
+      nav.classList.remove('fixed-nav')
+    }
+  }
+
+  window.addEventListener('scroll', adjust)
+
 </script>
 
 </body>
