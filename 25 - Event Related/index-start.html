@@ -49,9 +49,9 @@
         let one = document.querySelector('.one');
         let two = document.querySelector('.two');
         let three = document.querySelector('.three');
-        divs.forEach(div => div.addEventListener('click', logText, {
-            once: true,
-            capture: false
+        divs.forEach(div => div.addEventListener('click', logText3, {
+            // once: true,
+            capture: true
         }));
 
         // one.addEventListener('click', logText1, {
@@ -82,7 +82,7 @@
 
         function logText3(e) {
             console.log(this.classList.value);
-            e.stopPropagation();
+            // e.stopPropagation();
         }
     </script>
 </body>
