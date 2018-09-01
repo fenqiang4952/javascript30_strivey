@@ -23,7 +23,7 @@
       </li>
       <li>
         <a href="#">Courses</a>
-        <ul class="dropdown courses">
+        <ul class="dropdown courses dropdown2">
           <li>
             <span class="code">RFB</span>
             <a href="https://ReactForBeginners.com">React For Beginners</a>
@@ -208,6 +208,38 @@
 </style>
 
 <script>
+
+  const bg = document.querySelector('.dropdownBackground');
+  const ula = document.querySelectorAll('.cool > li > a');
+  const ularr = Array.from(ula)
+
+  ula.forEach((item, index) => {
+    item.addEventListener('mouseover', function() {
+      item.parentNode.classList.add('trigger-enter')
+      item.parentNode.classList.add('trigger-enter-active')
+      toggleBg(index+1)
+    })
+    item.addEventListener('mouseout', function() {
+      item.parentNode.classList.remove('trigger-enter')
+      item.parentNode.classList.remove('trigger-enter-active')
+      toggleBg()
+    })
+  })
+
+  function toggleBg(index) {
+    if(index) {
+      const bgPos = document.querySelector(`.dropdown${index}`).getBoundingClientRect();
+      bg.style.left = `${bgPos.left}px`
+      bg.style.top = `${bgPos.top - 60}px`
+      bg.style.width = `${bgPos.width}px`
+      bg.style.height = `${bgPos.height}px`
+      bg.classList.add('open')
+    }else {
+      bg.style.width = 0
+      bg.style.height = 0
+      bg.classList.remove('open')
+    }
+  }
 </script>
 
 </body>
