@@ -35,6 +35,32 @@
   </div>
 
 <script>
+  const silder = document.querySelector('.items');
+  let isMouseDown = false
+  let startX = null
+  let scrollLeft = null
+
+
+  silder.addEventListener('mousedown', (e) => {
+    isMouseDown = true
+    silder.classList.add('active')
+    startX = e.pageX - silder.offsetLeft
+    scrollLeft = silder.scrollLeft
+  })
+  silder.addEventListener('mouseup', (e) => {
+    isMouseDown = false
+    silder.classList.remove('active')
+  })
+  silder.addEventListener('mousemove', (e) => {
+    if(isMouseDown) {
+      e.preventDefault();
+      const x = e.pageX - silder.offsetLeft;
+      const walk = (x - startX) * 3;
+      silder.scrollLeft = scrollLeft - walk;
+    }
+  })
+
+
 </script>
 
   </body>
