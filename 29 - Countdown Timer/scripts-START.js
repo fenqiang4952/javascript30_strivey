@@ -30,8 +30,6 @@ function clickAction(e){
         updateTimer();
 }
 
-
-
 //updateTime
 function updateTime(delta){
 	    left = left + parseInt(delta,0);
